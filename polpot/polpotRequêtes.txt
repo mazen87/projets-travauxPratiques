@@ -1,0 +1,24 @@
+//Tous les clients qui n'ont pas passé commande depuis 3 mois
+
+select nom as nom_client from client  where client.id  not in (select c.id as id_client from client c inner join devis d inner join commande com on c.id = d.id_client and  com.id_devis = d.id where
+com.date between NOW() and  DATE_SUB( NOW(), INTERVAL 90 DAY)); 
+
+//Traquer un lot de produit: chez quel client as-t'il été ?
+select c.nom as nom_client from client c inner join devis d inner join lien_devis_produit on c.id = d.id_client and d.id = lien_devis_produit.id_devis where lien_devis_produit.lot = '123';
+
+//Trouver les factures qui sont antidatées et précèdent les devis associés
+select f.date , f.prix ,d.date, d.prix from facture f inner join commande inner join devis d on f.id_commande = commande.id and 
+commande.id_devis = d.id where f.date < d.date;
+
+//Les devis et factures dont les prix diffèrent
+select f.date , d.date from facture f inner join commande INNER join devis d on f.id_commande = commande.id and commande.id_devis = d.id where f.date != d.date; 
+
+//Le devis associé à chacune des productions
+select d.date, d.prix ,production.id from devis d inner join commande inner join production on d.id = commande.id_devis and commande.id = production.id_commande where production.id= 1
+
+//Le plus gros client de l'année en terme de chiffre d'affaire
+
+SELECT c.nom, SUM(com.prix) AS sum_prix FROM client c inner JOIN devis d inner join commande com  ON c.id = d.id_client and d.id = com.id_devis GROUP BY c.nom ORDER BY SUM(com.prix)DESC LIMIT 1 
+
+//Le plus gros client de l'année en terme de quantité produite
+SELECT c.nom, SUM(lien_devis_produit.qte) AS sum_qte FROM client c inner JOIN devis d inner join lien_devis_produit inner join  commande com  ON c.id = d.id_client and d.id = lien_devis_produit.id_devis and  d.id = com.id_devis  GROUP BY c.nom ORDER BY SUM(lien_devis_produit.qte)DESC LIMIT 1
