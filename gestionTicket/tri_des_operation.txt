@@ -1,0 +1,13 @@
+ le tri des opérations : 
+ - Ouvrir la session. 
+ - Connexion à la base de données.
+ - Déclarer des variable.
+ - Assainir les données passées en paramètre POST ou GET 
+ - Construction et exécution des requêtes d'ajout, de modification, de suppression  
+ - Construction et exécution des requêtes de sélection
+ - Déconnexion de la base de données
+ - Début de la phase de rendu
+ - Entête HTML
+ - Ajout de la CSS, du Javascript
+ - Corps HTML
+ 
