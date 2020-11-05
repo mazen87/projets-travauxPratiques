@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="UTF8"/>
+        <script src="jquery-3.5.1.min.js"></script>
+        <script>
+           $(function(){
+               /*
+               $("#envRec").click(function(){
+                    $.ajax({
+                        url :"index.php",
+                       
+                        data : {
+                             nombre : $("#nombre").val()   
+                        } ,
+                        method : "POST"
+                        
+
+                        })
+                        
+                        
+                      // la réception 
+                    .done(function(resultat){
+                        console.log(resultat);
+                       // var elemnt = document.getElementById("affichage");
+                        //elemnt.innerHTML = resultat;
+                       
+                    });
+                   
+
+               });
+               */
+               // la réception 
+               /*
+               $("#envRec").click(function(){
+                   $.ajax({
+
+                    url: "index.php",
+                   
+                   })
+                   .done(function(donnees){
+                       var elemnt = document.getElementById("affichage");
+                       elemnt.innerHTML = donnees.res;
+
+                   })
+                  
+               })
+                */
+
+                /*
+
+                // traiter le bar de recherche 
+
+             $("#search").change(function(){
+                 var saisi = $("#search").val();
+                 console.log(saisi);
+
+                 //Retire tous les éléments de la liste
+             $("#liste_fruits").empty();
+             
+             if(saisi.length >=3){
+                 $.ajax({
+                     url: "index.php",
+                     data: {
+                        recherche:saisi
+                     },
+                     method: "POST",
+                     dataType: "JSON"
+
+                 }).done(function(donnes){
+                     
+                     for(i=0;i<donnes.length;i++){
+                        
+                        $("#liste_fruits").append("<li>"+donnes[i].nom+"</li>");
+                        //console.log(donnes[i]);
+                     }
+
+                 });
+             }
+
+             });
+
+             */
+
+             // traiter les bars de recherche pour les villes & codes postals
+             
+             $("#nom_ville , #code_postal").on("input",function(){
+                    let saisi_ville = "";
+                    let saisi_cp = "";
+                    /*
+                    if($("#nom_ville").val()!=null && $("#code_postal").val()==""){
+                     saisi_vill_cp = $("#nom_ville").val() ;
+                    }
+                    else if ($("#code_postal").val()!=null && $("#nom_ville").val()==""){
+                         saisi_vill_cp = $("#code_postal").val() ;
+                    }
+                    */
+                    //console.log(saisi_vill_cp);
+                    saisi_ville = $("#nom_ville").val();
+                    saisi_cp = $("#code_postal").val();
+                    console.log(saisi_ville);
+                    console.log(saisi_cp);
+
+                      //Retire tous les éléments de la liste
+                         $("#liste_ville_cp").empty();
+
+                     if(saisi_ville.length >= 3 || saisi_cp.length >=2){
+                         console.log(1);
+                         $.ajax({
+                            url: "index.php",
+                            data: {
+                                recherche_v : saisi_ville,
+                                recherche_cp: saisi_cp
+                            },
+                            method: "POST",
+                            dataType: "JSON"
+                         }).done(function(resultat){
+                            console.log(2);
+                             for(i=0;i<resultat.length;i++){
+                                console.log(3);
+                                //$("#liste_ville_cp").append("<li>"+resultat[i].nom+" "+ resultat[i].code_postal+"</li>"); 
+                                $("#liste_ville_cp").append('<li data-nom="'+resultat[i].nom+'" data-code_postal="'+resultat[i].code_postal+'">'+resultat[i].nom+" ("+resultat[i].code_postal+")"+"</li>");
+                                
+                                $("#liste_ville_cp li").click(function(){
+                                    $("#nom_ville").val($(this).data("nom"));
+                                    $("#code_postal").val($(this).data("code_postal"));
+
+                                });
+                            }
+
+                         });
+                     }    
+
+             });
+
+           });    
+            
+
+
+        </script>
+
+    </head>
+    <body>
+        <input type="number" placeholder="entrez un nombre...." id="nombre"/>
+        <button id="envRec"> Envoi & Réception</button>
+        <div id="affichage">
+
+        </div>
+        <input type="search" id="search" placeholder="le nom de fruit ....... "/>
+        <ul id="liste_fruits"></ul>
+
+        <input type="text" placeholder="nom de ville...." id="nom_ville" />
+        <input type="text" placeholder="code postal...." id="code_postal" />
+        <ul id="liste_ville_cp"></ul>
+    </body>
+</html>
