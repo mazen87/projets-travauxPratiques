@@ -1,5 +1,6 @@
 <?php 
     require_once 'connexionbdd.php';
+    $connexionBDD = Connexionbdd::Construct_objetBDD ("localhost","root","","fruits");
 
     /*
    $nombre = 0;
@@ -64,7 +65,7 @@
             
             // on prépare la requête 
             $requete_ville_cp = "SELECT nom,code_postal from ville WHERE nom LIKE ? or code_postal LIKE ? ORDER BY population DESC";
-            $stmt = $GLOBALS['connexion']->prepare($requete_ville_cp);
+            $stmt = $connexionBDD->connexion->prepare($requete_ville_cp);
             $stmt->bind_param("ss",$p_nom_ville,$p_code_postal);
             if(!empty($recherche_v) && empty($recherche_cp)){
                 $p_nom_ville = "%".$recherche_v."%";
