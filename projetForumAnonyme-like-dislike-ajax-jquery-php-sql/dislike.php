@@ -36,12 +36,12 @@
             $dislike_disables = intval($_POST['disabled_dislike']);
         }
 
-        if($dislike_disables){
+        if($like_disables){
             $requete = "UPDATE message SET nombre_likes =?,nombre_dislikes =? where id =? ";
             $stmt = $connexionBDD->connexion->prepare($requete);
             $stmt->bind_param("iii",$p_nombre_likes,$p_nombre_dislikes,$p_id_message);
-            $nombre_dislikes_modifie = $nombre_dislikes-1;
-            $nombre_likes_modifie = $nombre_likes+1;
+            $nombre_dislikes_modifie = $nombre_dislikes+1;
+            $nombre_likes_modifie = $nombre_likes-1;
             $p_nombre_likes = $nombre_likes_modifie;
             $p_nombre_dislikes = $nombre_dislikes_modifie;
             $p_id_message = $id_message;
@@ -55,12 +55,12 @@
             
 
         }else{
-            $requete = "UPDATE message SET nombre_likes =? where id =? ";
+            $requete = "UPDATE message SET nombre_dislikes =? where id =? ";
             $stmt = $connexionBDD->connexion->prepare($requete);
-            $stmt->bind_param("ii",$p_nombre_likes,$p_id_message);
-            $nombre_dislikes_modifie = $nombre_dislikes;
-            $nombre_likes_modifie = $nombre_likes+1;
-            $p_nombre_likes = $nombre_likes_modifie;
+            $stmt->bind_param("ii",$p_nombre_dislikes,$p_id_message);
+            $nombre_dislikes_modifie = $nombre_dislikes+1;
+            $nombre_likes_modifie = $nombre_likes;
+            $p_nombre_dislikes = $nombre_dislikes_modifie;
             $p_id_message = $id_message;
 
             /**
@@ -72,41 +72,3 @@
             echo json_encode($resultat);
         }
     }
-    /*
-   if(!empty($_POST)){
-       $id_message = intval($_POST['id_message']);
-       $nombre_likes = intval($_POST['nombre_likes']);
-       $nombre_dislikes = intval($_POST['nombre_dislikes']);
-       $id_element = intval($_POST['id_element']);
-       $dislikeDecrement = $_POST['dislikeIncrement'];
-       $requete_modifier = "";
-       $nombre_likes_modifie = 0;
-       $nombre_dislikes_modifie = 0;
-       $resultat = array();
-
-       // préparer la requête 
-       if($dislikeDecrement == true){
-        $requete_modifier = "UPDATE message set nombre_likes=?, nombre_dislikes = ? WHERE id_message = ? ";
-        $stmt = $connexionBDD->connexion->prepare($requete_modifier);
-        $stmt->bind_param("iii",$p_nombre_likes,$p_nombre_dislikes,$p_id_message);
-        $p_id_message = $id_message;
-        $p_nombre_likes = $nombre_likes+1;
-        $p_nombre_dislikes = $nombre_dislikes-1;
-        $nombre_likes_modifie = $p_nombre_likes;
-        $nombre_dislikes_modifie = $p_nombre_dislikes;
-       }
-       else if($dislikeDecrement == false){
-        $requete_modifier = "UPDATE message set nombre_likes=? WHERE id_message = ? ";
-        $stmt->bind_param("ii",$p_nombre_likes,$p_id_message);
-        $p_id_message = $id_message;
-        $p_nombre_likes = $nombre_likes+1;
-        $nombre_likes_modifie = $p_nombre_likes;
-        $nombre_dislikes_modifie = $nombre_dislikes;
-        
-       }
-       $stmt->execute();
-       $resultat[] = array('num_likes'=>$nombre_likes_modifie,"num_dislikes=>$nombre_dislikes_modifie", "id_message"=>$id_message);
-       echo json_encode($resultat);
-   }
-
-                /*

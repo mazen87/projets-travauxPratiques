@@ -129,11 +129,38 @@
                             $("#retour_like").val(donnes.nouveau_nombre_likes);
                             if(donnes.nouveau_nombre_dislikes != null){
                                 $("#retour_dislike").val(donnes.nouveau_nombre_dislikes);
+                                console.log(donnes.nouveau_nombre_dislikes);
                             }
                             $("#like").prop('disabled',true);
 
                         });
                 });
+
+
+                /**
+                traiter le dislike 
+                 */
+                 $("#dislike").click(function(){
+                    $.ajax({
+                            url : "dislike.php",
+                            data : {
+                                likes_nombre : nombre_likes,
+                                dislikes_nombre : nombre_dislikes,
+                                message_id : id_message,
+                                disabled_like : like_disabled,
+                                disabled_dislike : dislike_disabled
+                            },
+                            method : "POST",
+                            dataType : "JSON"
+                        }).done(function(resultat){
+                            $("#retour_dislike").val(resultat.nouveau_nombre_dislikes);
+                            if(resultat.nouveau_nombre_likes != null){
+                                $("#retour_like").val(donnes.nouveau_nombre_likes);
+                                console.log(donnes.nouveau_nombre_dislikes);
+                            }
+                            $("#dislike").prop('disabled',true);
+                        });       
+                 });
 
                
 
@@ -159,6 +186,7 @@
             echo $reussi;
         }
         ?>
+      
         <input type="hidden" id="id_message" value="<?=$id_message?>"/>
         <input type="hidden" id="nombre_likes" value="<?=$nombre_likes?>"/>
         <input type="hidden" id="nombre_dislikes" value="<?=$nombre_dislikes?>"/>

@@ -130,9 +130,10 @@
             <td id="nombre_likes"><?=$messages[$i]->get_nombre_likes()?></td>
             <td id="nombre_dislikes"><?=$messages[$i]->get_nombre_dislikes()?></td>
             <td><a href="repondre.php?id_message=<?=$messages[$i]->get_id()?>&contenu=<?=$messages[$i]->get_contenu()?>&createur=<?=$messages[$i]->get_ip_utilisateur()?>&nombre_likes=<?=$messages[$i]->get_nombre_likes()?>&nombre_dislikes=<?=$messages[$i]->get_nombre_dislikes()?>">Répondre/like/dislike</a></td>
+            <!--
             <td><button id="like_bouton" data-id_message="<?=$messages[$i]->get_id()?>" data-nombre_likes="<?=$messages[$i]->get_nombre_likes()?>"data-nombre_dislikes="<?=$messages[$i]->get_nombre_dislikes()?>" data-createur_message="<?=$messages[$i]->get_ip_utilisateur()?>" data-id_element =<?=$i+1?>>Like</button></td>
             <td><button id="dislike_bouton" data-id_message="<?=$messages[$i]->get_id()?>" data-nombre_likes="<?=$messages[$i]->get_nombre_likes()?>"data-nombre_dislikes="<?=$messages[$i]->get_nombre_dislikes()?>" data-createur_message="<?=$messages[$i]->get_ip_utilisateur()?>">Dislike</button></td>
-            
+        -->
         </tr>   
     <?php     
         }            
