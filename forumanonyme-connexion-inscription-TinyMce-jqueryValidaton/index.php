@@ -83,6 +83,8 @@ $utilisateur = new Utilisateur();
     <head>
         <script src="jquery-3.5.1.min.js"></script>
         <script src="jquery-validation-1.19.2/dist/jquery.validate.js"></script>
+        <script src="jquery-validation-1.19.2/dist/localization/messages_fr.js"></script>
+
         <script>
             $(function(){
                 $("#connexion").validate({
