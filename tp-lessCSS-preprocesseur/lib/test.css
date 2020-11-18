@@ -1,0 +1,13 @@
+div {
+  border: 1px solid black;
+}
+div > h2 {
+  font-size: 20px;
+  text-decoration: underline;
+}
+.boucleheader-loop (@i) when (@i <= 6) h1 {
+  font-size: 30px;
+}
+.bouclegris-loop (@i) when (@i <= 5) .gris-1 {
+  background-color: #e0e0e0;
+}

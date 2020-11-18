@@ -1,0 +1,27 @@
+div {
+  border: 1px solid black;
+  
+  > h2 {
+    font-size: 20px;
+    text-decoration: underline;
+  }
+}
+
+@i: 1;
+.boucleheader-loop (@i) when (@i <= 6) {
+  h@{i} {
+    @j: (30-((@i - 1)*2));
+    font-size: ~"@{j}px";
+  }
+  .boucleheader-loop(@i + 1);
+}
+.boucleheader-loop (@i);
+
+@i: 1;
+.bouclegris-loop (@i) when (@i <= 5) {
+  .gris-@{i} {
+    background-color: rgb(256-@i*32, 256-@i*32, 256-@i*32);
+  }
+  .bouclegris-loop(@i + 1);
+}
+.bouclegris-loop (@i);
